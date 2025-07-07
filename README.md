@@ -22,6 +22,20 @@
 - `versions/` — Saved project versions
 - `template/` — Project templates
 
+## Usage
+
+For local development, run commands using Node.js:
+
+```sh
+node ./bin/vf-copilot.js <command>
+```
+
+Or, if you have made the script executable:
+
+```sh
+./bin/vf-copilot.js <command>
+```
+
 ## Global Installation
 
 You can install the CLI globally to use the `vf-copilot` command from anywhere:
@@ -42,25 +56,6 @@ For example:
 vf-copilot setup-project
 ```
 
-## Usage
-
-For local development, run commands using Node.js:
-
-```sh
-node ./bin/vf-copilot.js <command>
-```
-
-Or, if you have made the script executable:
-
-```sh
-./bin/vf-copilot.js <command>
-```
-
-If you install the CLI globally, you can use:
-
-```sh
-vf-copilot <command>
-```
 
 ## CLI Commands
 - `add-api-tool [file]` — Interactive prompt to add an API tool to your agent
