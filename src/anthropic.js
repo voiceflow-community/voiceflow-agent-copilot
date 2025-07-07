@@ -15,7 +15,11 @@ function extractJsonFromAnthropicResponse(contentArray) {
         try {
           return JSON.parse(tripleBacktickMatch[1])
         } catch (e) {
-          console.error('Failed to parse JSON from triple backticks:', e)
+          console.error(
+            'Failed to parse JSON from triple backticks:',
+            tripleBacktickMatch[1],
+            e
+          )
         }
       }
       // Try to extract the first {...} JSON block
@@ -24,11 +28,21 @@ function extractJsonFromAnthropicResponse(contentArray) {
         try {
           return JSON.parse(curlyMatch[0])
         } catch (e) {
-          console.error('Failed to parse JSON from curly braces:', e)
+          console.error(
+            'Failed to parse JSON from curly braces:',
+            curlyMatch[0],
+            e
+          )
+          console.warn(
+            '\n[Warning] The AI response contained invalid JSON. Please review the output and try again if necessary.\n'
+          )
         }
       }
     }
   }
+  console.warn(
+    '\n[Warning] No valid JSON found in the AI response. The tool may not have been added correctly.\n'
+  )
   throw new Error('No valid JSON found in Anthropic response')
 }
 
