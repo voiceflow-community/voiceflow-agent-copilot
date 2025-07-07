@@ -6,7 +6,87 @@ import { generateMongoId } from './id-generator.js'
  * @returns {string}
  */
 export function buildApiToolPrompt(apiDescription) {
-  return `You are an expert Voiceflow agent designer tasked with creating a Voiceflow-compatible API tool definition based on an API description or endpoint. Your goal is to generate a single JSON object that includes the apiTool definition, an array of apiToolInputVariables, and an agentAPITool object.\n\nHere is the API description or endpoint you will be working with:\n<api_description>\n${apiDescription}\n</api_description>\n\nYour output must be a single valid JSON object, with no additional prose, explanation, or formatting. Do not wrap your answer in triple backticks or any other markdown.\n\nThe JSON object should contain the following top-level keys:\n1. \"apiTool\": An object representing the API tool definition\n2. \"apiToolInputVariables\": An array of objects representing the input variables\n3. \"agentAPITool\": An object representing the agent API tool\n\nThe apiTool object should follow this structure:\n{\n  \"id\": \"<UNIQUE_24_CHAR_HEX_ID>\",\n  \"name\": \"<Human-Readable Tool Name>\",\n  \"httpMethod\": \"<get | post | put | patch | delete>\",\n  \"url\": [ { \"text\": [ \"<URL_STRING>\", { \"variableID\": \"<VARIABLE_ID_IF_IN_URL_PATH>\" } ] } ],\n  \"description\": \"<Detailed description of what the tool does>\",\n  \"headers\": [\n    {\n      \"id\": \"<UNIQUE_24_CHAR_HEX_ID>\",\n      \"key\": \"<Header Key>\",\n      \"value\": [ { \"text\": [ \"<Header Value>\" ] } ]\n    }\n  ],\n  \"queryParameters\": [\n    {\n      \"id\": \"<UNIQUE_24_CHAR_HEX_ID>\",\n      \"key\": \"<Query Parameter Key>\",\n      \"value\": [ { \"text\": [ \"\", { \"variableID\": \"<VARIABLE_ID>\" }, \" \" ] } ]\n    }\n  ],\n  \"body\": {\n    \"type\": \"raw-input\",\n    \"content\": [ \"<JSON_STRING_START>\", { \"variableID\": \"<VARIABLE_ID>\" }, \"<JSON_STRING_END>\" ],\n    \"contentType\": \"json\"\n  },\n  \"createdByID\": 3600,\n  \"folderID\": null,\n  \"image\": null,\n  \"createdAt\": \"<ISO_8601_TIMESTAMP>\",\n  \"updatedAt\": \"<ISO_8601_TIMESTAMP>\",\n  \"updatedByID\": 3600\n}\n\nThe apiToolInputVariables array should contain objects with this structure:\n{\n  \"id\": \"<UNIQUE_24_CHAR_HEX_ID>\",\n  \"name\": \"<variable_name_in_snake_case>\",\n  \"apiToolID\": \"<ID_OF_THE_API_TOOL_YOU_ARE_CREATING>\",\n  \"description\": \"<Description of the variable>\",\n  \"createdAt\": \"<ISO_8601_TIMESTAMP>\"\n}\n\nThe agentAPITool object should follow this structure:\n{\n  \"id\": \"<UNIQUE_24_CHAR_HEX_ID>\",\n  \"agentID\": \"<AGENT_ID_FROM_EXISTING_PROJECT_FILE>\",\n  \"apiToolID\": \"<ID_OF_THE_API_TOOL_YOU_ARE_CREATING>\",\n  \"description\": null,\n  \"inputVariables\": {},\n  \"captureResponse\": null\n}\n\nWhen generating the API tool definition:\n1. Search online for the latest official API documentation and endpoints for the described API.\n2. Use only official documentation and best practices when generating the API tool definition.\n3. Include all required fields as shown in the structure above.\n4. Generate unique 24-character hexadecimal IDs for all id fields.\n5. Use snake_case for variable names.\n6. Provide detailed descriptions for the API tool and each input variable.\n7. Use ISO 8601 timestamps for createdAt and updatedAt fields.\n8. Set sensible defaults for missing fields (e.g., folderID: null, image: null, createdByID: 3600, etc.).\n9. Ensure that the httpMethod matches the API endpoint'\''s requirements.\n10. Include appropriate headers, query parameters, and body content based on the API documentation.\n\nRemember, your output must be a single valid JSON object containing the apiTool, apiToolInputVariables, and agentAPITool structures. Do not include any additional text or explanations outside of the JSON object.`
+  return `You are an expert Voiceflow agent designer tasked with creating a Voiceflow-compatible API tool definition based on an API description or endpoint. Your goal is to generate a single JSON object that includes the apiTool definition, an array of apiToolInputVariables, and an agentAPITool object.
+
+Here is the API description or endpoint you will be working with:
+<api_description>
+${apiDescription}
+</api_description>
+
+Your output must be a single valid JSON object, with no additional prose, explanation, or formatting. Do not wrap your answer in triple backticks or any other markdown.
+
+The JSON object should contain the following top-level keys:
+1. "apiTool": An object representing the API tool definition
+2. "apiToolInputVariables": An array of objects representing the input variables
+3. "agentAPITool": An object representing the agent API tool
+
+The apiTool object should follow this structure:
+{
+  "id": "<UNIQUE_24_CHAR_HEX_ID>",
+  "name": "<Human-Readable Tool Name>",
+  "httpMethod": "<get | post | put | patch | delete>",
+  "url": [ { "text": [ "<URL_STRING>", { "variableID": "<VARIABLE_ID_IF_IN_URL_PATH>" } ] } ],
+  "description": "<Detailed description of what the tool does>",
+  "headers": [
+    {
+      "id": "<UNIQUE_24_CHAR_HEX_ID>",
+      "key": "<Header Key>",
+      "value": [ { "text": [ "<Header Value>" ] } ]
+    }
+  ],
+  "queryParameters": [
+    {
+      "id": "<UNIQUE_24_CHAR_HEX_ID>",
+      "key": "<Query Parameter Key>",
+      "value": [ { "text": [ "", { "variableID": "<VARIABLE_ID>" }, " " ] } ]
+    }
+  ],
+  "body": {
+    "type": "raw-input",
+    "content": [ "<JSON_STRING_START>", { "variableID": "<VARIABLE_ID>" }, "<JSON_STRING_END>" ],
+    "contentType": "json"
+  },
+  "createdByID": 3600,
+  "folderID": null,
+  "image": null,
+  "createdAt": "<ISO_8601_TIMESTAMP>",
+  "updatedAt": "<ISO_8601_TIMESTAMP>",
+  "updatedByID": 3600
+}
+
+The apiToolInputVariables array should contain objects with this structure:
+{
+  "id": "<UNIQUE_24_CHAR_HEX_ID>",
+  "name": "<variable_name_in_snake_case>",
+  "apiToolID": "<ID_OF_THE_API_TOOL_YOU_ARE_CREATING>",
+  "description": "<Description of the variable>",
+  "createdAt": "<ISO_8601_TIMESTAMP>"
+}
+
+The agentAPITool object should follow this structure:
+{
+  "id": "<UNIQUE_24_CHAR_HEX_ID>",
+  "agentID": "<AGENT_ID_FROM_EXISTING_PROJECT_FILE>",
+  "apiToolID": "<ID_OF_THE_API_TOOL_YOU_ARE_CREATING>",
+  "description": null,
+  "inputVariables": {},
+  "captureResponse": null
+}
+
+When generating the API tool definition:
+1. Search online for the latest official API documentation and endpoints for the described API.
+2. Be sure to use a working API endpoint for the API tool and prioritize free APIs or APIs that don't require authentication.
+3. Use only official documentation and best practices when generating the API tool definition.
+4. Include all required fields as shown in the structure above.
+5. Generate unique 24-character hexadecimal IDs for all id fields.
+6. Use snake_case for variable names.
+7. Provide detailed descriptions for the API tool and each input variable.
+8. Use ISO 8601 timestamps for createdAt and updatedAt fields.
+9. Set sensible defaults for missing fields (e.g., folderID: null, image: null, createdByID: 3600, etc.).
+10. Ensure that the httpMethod matches the API endpoint's requirements.
+11. Include appropriate headers, query parameters, and body content based on the API documentation.
+
+Remember, your output must be a single valid JSON object containing the apiTool, apiToolInputVariables, and agentAPITool structures. Do not include any additional text or explanations outside of the JSON object.`
 }
 
 /**
