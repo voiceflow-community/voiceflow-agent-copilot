@@ -20,7 +20,6 @@
 - `src/` — Source code
 - `projects/` — Project files
 - `versions/` — Saved project versions
-- `exports_examples/` — Example export files
 - `template/` — Project templates
 
 ## Global Installation
