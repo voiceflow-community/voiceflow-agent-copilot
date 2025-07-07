@@ -1,0 +1,25 @@
+{
+  "name": "voiceflow-agent-copilot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "bin": {
+    "vf-copilot": "./bin/vf-copilot.js"
+  },
+  "scripts": {
+    "start": "node ./bin/vf-copilot.js",
+    "setup": "node ./bin/vf-copilot.js setup-project",
+    "add-api": "node ./bin/vf-copilot.js add-api-tool",
+    "ai-api": "node ./bin/vf-copilot.js ai-add-api-tool"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.10.0",
+    "dotenv": "^17.0.0",
+    "inquirer": "^12.6.3",
+    "yargs": "^18.0.0"
+  }
+}
